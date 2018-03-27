@@ -14,7 +14,7 @@ public class BillController {
     private MainActivity bView;
     public int splitAmount;
 
-    public double getSplitAmount() {
+    public int getSplitAmount() {
         return splitAmount;
     }
 
@@ -76,13 +76,20 @@ public class BillController {
         this.bView.splitSeeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                setSplitAmount(progress);
                 bModel.setTipPercentage(bView.tipSeeker.getProgress());
-                bModel.setSplitAmount(splitAmount);
+                bModel.setSplitAmount(getSplitAmount());
 
                 if (!bView.billSubTotalView.getText().toString().equals("")) {
                     bModel.setBillSubTotal(getSubTotal());
                     bModel.setBillGrandTotal(calculateAndSetGrandTotal());
+                }
+
+                if (getSplitAmount() == 1){
+                    bView.personIndicator.setText("Person");
+                }
+                else {
+                    bView.personIndicator.setText("People");
                 }
 
                 splitAmount = bModel.getSplitAmount();

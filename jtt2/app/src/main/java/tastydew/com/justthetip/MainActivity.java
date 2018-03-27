@@ -16,6 +16,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
 
     BillModel billModel;
+    TextView personIndicator;
     EditText billSubTotalView;
     TextView tipAmountView;
     SeekBar splitSeeker;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         billGrandTotalView = findViewById(R.id.text_TotalBillAmount);
         billModel = new BillModel();
         billController = new BillController(this, billModel);
+        personIndicator = findViewById(R.id.text_personIndicator);
 
         tipFormat = new DecimalFormat("##");
         gtFormat = NumberFormat.getCurrencyInstance(Locale.getDefault());
