@@ -2,6 +2,7 @@ package tastydew.com.justthetip;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     BillController billController;
     DecimalFormat tipFormat;
     NumberFormat gtFormat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,18 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         billSubTotalView.setOnTouchListener(this);
         splitSeeker.setOnTouchListener(this);
         tipSeeker.setOnTouchListener(this);
+
+        billSubTotalView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+
+                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&  (i == KeyEvent.KEYCODE_ENTER)){
+                    billController.setSubTotal(Double.parseDouble(billSubTotalView.getText().toString()));
+                    billGrandTotalView.setText(gtFormat.format(billController.grandTotal));
+                }
+                return false;
+            }
+        });
     }
 
 

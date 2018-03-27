@@ -8,7 +8,7 @@ public class BillModel {
 
 
     private double billSubTotal;
-    private double splitAmount;
+    private int splitAmount;
     private double tipPercentage;
     private double billGrandTotal;
 
@@ -37,7 +37,7 @@ public class BillModel {
          this.billSubTotal = billSubTotal;
     }
 
-    public double getSplitAmount() {
+    public int getSplitAmount() {
         return splitAmount;
     }
 
@@ -66,11 +66,9 @@ public class BillModel {
     }
 
     //calculation methods
-
-
     public double CalculateTotal(double subTotalAmount, double split, double tip) {
 
-        return billGrandTotal = ((subTotalAmount * tip) + subTotalAmount) / split;
+        return billGrandTotal = (subTotalAmount * (1 + tip)) / split;
     }
 
 }

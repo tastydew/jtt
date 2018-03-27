@@ -12,7 +12,40 @@ public class BillController {
 
     private BillModel bModel;
     private MainActivity bView;
-    public double splitAmount;
+    public int splitAmount;
+
+    public double getSplitAmount() {
+        return splitAmount;
+    }
+
+    public void setSplitAmount(int splitAmount) {
+        this.splitAmount = splitAmount;
+    }
+
+    public double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    public double getTipAmount() {
+        return tipAmount;
+    }
+
+    public void setTipAmount(double tipAmount) {
+        this.tipAmount = tipAmount;
+    }
+
+    public double getGrandTotal() {
+        return grandTotal;
+    }
+
+    public void setGrandTotal(double grandTotal) {
+        this.grandTotal = grandTotal;
+    }
+
     public double subTotal;
     public double tipAmount;
     public double grandTotal;
@@ -44,11 +77,11 @@ public class BillController {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-                bModel.setSplitAmount(bView.splitSeeker.getProgress());
                 bModel.setTipPercentage(bView.tipSeeker.getProgress());
+                bModel.setSplitAmount(splitAmount);
 
                 if (!bView.billSubTotalView.getText().toString().equals("")) {
-                    bModel.setBillSubTotal(Double.parseDouble(bView.billSubTotalView.getText().toString()));
+                    bModel.setBillSubTotal(getSubTotal());
                     bModel.setBillGrandTotal(calculateAndSetGrandTotal());
                 }
 
@@ -71,11 +104,10 @@ public class BillController {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
 
-                bModel.setSplitAmount(bView.splitSeeker.getProgress());
                 bModel.setTipPercentage(bView.tipSeeker.getProgress());
 
                 if (!bView.billSubTotalView.getText().toString().equals("")) {
-                    bModel.setBillSubTotal(Double.parseDouble(bView.billSubTotalView.getText().toString()));
+                    bModel.setBillSubTotal(getSubTotal());
 
                     bModel.setBillGrandTotal(calculateAndSetGrandTotal());
                 }
