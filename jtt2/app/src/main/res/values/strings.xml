@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">JustTheTip</string>
+    <string name="app_name" translatable="false">Just the Tip!</string>
+    <string name="billAmtLabel">How much was the bill?</string>
+    <string name="splitAmtLbl">The bill is split amongst</string>
+    <string name="splitPeopleLabel">People</string>
+    <string name="customTipHint">Custom %</string>
+    <string name="TipAmountLbl">How much are you tipping?</string>
+    <string name="lblTotalBill">Total Bill (Per person)</string>
 </resources>
