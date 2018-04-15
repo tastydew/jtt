@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&  (i == KeyEvent.KEYCODE_ENTER)){
                     billController.setSubTotal(Double.parseDouble(billSubTotalView.getText().toString()));
-                    billGrandTotalView.setText(gtFormat.format(billController.grandTotal));
+                    billGrandTotalView.setText(gtFormat.format(billController.getGrandTotal()));
                 }
                 return false;
             }
@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        billGrandTotalView.setText(gtFormat.format(billController.grandTotal));
-        tipAmountView.setText(tipFormat.format(billController.tipAmount * 100) + "%");
+        billGrandTotalView.setText(gtFormat.format(billController.getGrandTotal()));
+        tipAmountView.setText(tipFormat.format(billController.getTipAmount() * 100) + "%");
         splitAmountCounter.setText(tipFormat.format(billController.splitAmount));
         return false;
     }

@@ -12,6 +12,11 @@ public class BillController {
 
     private BillModel bModel;
     private MainActivity bView;
+
+    private double subTotal;
+    private double tipAmount;
+    private double grandTotal;
+
     public int splitAmount;
 
     public int getSplitAmount() {
@@ -39,16 +44,10 @@ public class BillController {
     }
 
     public double getGrandTotal() {
-        return grandTotal;
+        return bModel.getBillGrandTotal();
     }
 
-    public void setGrandTotal(double grandTotal) {
-        this.grandTotal = grandTotal;
-    }
 
-    public double subTotal;
-    public double tipAmount;
-    public double grandTotal;
 
     public BillController(final MainActivity bView, final BillModel bModel){
         this.bModel = bModel;
@@ -76,13 +75,14 @@ public class BillController {
         this.bView.splitSeeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                setSplitAmount(0);
                 setSplitAmount(progress);
                 bModel.setTipPercentage(bView.tipSeeker.getProgress());
                 bModel.setSplitAmount(getSplitAmount());
 
                 if (!bView.billSubTotalView.getText().toString().equals("")) {
                     bModel.setBillSubTotal(getSubTotal());
-                    bModel.setBillGrandTotal(calculateAndSetGrandTotal());
+                    bModel.getBillGrandTotal();
                 }
 
                 if (getSplitAmount() == 1){
@@ -99,11 +99,13 @@ public class BillController {
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
                 splitAmount = bView.splitSeeker.getProgress();
+                setSplitAmount(splitAmount);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 splitAmount = bView.splitSeeker.getProgress();
+                setSplitAmount(splitAmount);
             }
         });
 
@@ -116,30 +118,25 @@ public class BillController {
                 if (!bView.billSubTotalView.getText().toString().equals("")) {
                     bModel.setBillSubTotal(getSubTotal());
 
-                    bModel.setBillGrandTotal(calculateAndSetGrandTotal());
+                    bModel.getBillGrandTotal();
                 }
                 tipAmount = bModel.getTipPercentage();
+                setTipAmount(tipAmount);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 
-                tipAmount = bModel.getTipPercentage();            }
+                tipAmount = bModel.getTipPercentage();
+                setTipAmount(tipAmount);
+            }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                tipAmount = bModel.getTipPercentage();            }
+            }
         });
 
 
-    }
-
-    private double calculateAndSetGrandTotal() {
-
-        double subTotal = this.subTotal;
-        double tip = this.tipAmount;
-        double splitAmt = this.splitAmount;
-        return this.grandTotal = bModel.CalculateTotal(subTotal, splitAmt,tip);
     }
 
 }
